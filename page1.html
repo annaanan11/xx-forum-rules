@@ -105,15 +105,13 @@
             document.getElementById("main-content").style.display = "block";
         }
         
-        // 阻止返回上一頁並顯示「我在看你」畫面
-        window.addEventListener("DOMContentLoaded", function() {
-            history.pushState(null, null, document.URL);
-            window.addEventListener("popstate", function () {
-                history.pushState(null, null, document.URL);
-                document.getElementById("main-content").style.display = "none";
-                document.getElementById("eye-warning").style.display = "block";
-            });
-        });
+        // 當使用者按「上一頁」，跳轉到「我在看你」頁面
+window.addEventListener("DOMContentLoaded", function() {
+    history.pushState(null, null, document.URL);
+    window.addEventListener("popstate", function () {
+        window.location.href = "eye_warning.html";
+    });
+});
     </script>
 </body>
 </html>
