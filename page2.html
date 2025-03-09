@@ -51,6 +51,10 @@
         #nextPageBtn {
             display: none; /* 初始隱藏下一頁按鈕 */
         }
+        .disabled {
+            background-color: grey !important;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -67,10 +71,19 @@
         
         <p id="fadeText">你的聲音……正在被抹除。</p>
         
-        <p>請選擇你的立場：</p>
-        <button id="choice1" onclick="forceChoice()">我選擇順從</button>
-        <button id="choice2" onclick="forceChoice()">我選擇完全順從</button>
-        <button id="choice3" onclick="forceChoice()">我選擇徹底順從</button>
+        <p>請回答以下問題：</p>
+        
+        <p>1. 你是否願意遵守規則？</p>
+        <button class="disabled">我選擇自由發言</button>
+        <button class="choice" onclick="forceChoice()">我選擇順從</button>
+        
+        <p>2. 你是否願意成為我們的一部分？</p>
+        <button class="disabled">我選擇自由發言</button>
+        <button class="choice" onclick="forceChoice()">我選擇完全順從</button>
+        
+        <p>3. 你是否願意放棄獨立思考？</p>
+        <button class="disabled">我選擇自由發言</button>
+        <button class="choice" onclick="forceChoice()">我選擇徹底順從</button>
         
         <button id="nextPageBtn" onclick="nextPage()">下一頁</button>
     </div>
@@ -91,26 +104,15 @@
             });
         });
         
+        let choices = document.querySelectorAll(".choice");
+        let selectedChoices = 0;
         function forceChoice() {
-            document.getElementById("choice1").style.display = "none";
-            document.getElementById("choice2").style.display = "none";
-            document.getElementById("choice3").style.display = "none";
-            document.getElementById("nextPageBtn").style.display = "block"; // 顯示下一頁按鈕
+            selectedChoices++;
+            event.target.style.display = "none";
+            if (selectedChoices === choices.length) {
+                document.getElementById("nextPageBtn").style.display = "block"; // 顯示下一頁按鈕
+            }
         }
-        
-        setTimeout(() => {
-            let text = document.getElementById("fadeText");
-            let opacity = 1;
-            let interval = setInterval(() => {
-                if (opacity <= 0) {
-                    clearInterval(interval);
-                    text.innerHTML = "⚠️ 無法識別 ⚠️";
-                } else {
-                    opacity -= 0.05;
-                    text.style.opacity = opacity;
-                }
-            }, 100);
-        }, 3000);
     </script>
 </body>
 </html>
