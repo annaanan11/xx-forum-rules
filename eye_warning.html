@@ -63,7 +63,7 @@
     
     <script>
         function returnToPage() {
-            window.location.href = "page1.html"; // 回到正常頁面
+            window.location.href = sessionStorage.getItem("lastPage") || "page1.html"; // 回到使用者上次所在的頁面
         }
     </script>
 </body>
