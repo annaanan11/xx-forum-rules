@@ -55,7 +55,7 @@
         <input type="text" id="username" placeholder="輸入名稱">
         <button onclick="startReading()">開始閱讀</button>
     </div>
-    
+     <button onclick="startReading()">開始閱讀</button>
     <script>
         function startReading() {
             let userInput = document.getElementById("username").value;
@@ -64,7 +64,7 @@
             }
             let scrambledName = scrambleText(userInput);
             sessionStorage.setItem("username", scrambledName);
-            window.location.href = "page1.html";
+            window.location.href = "page1.html"; // 確保這裡正確指向 page1.html
         }
 
         function scrambleText(text) {
