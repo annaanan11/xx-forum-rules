@@ -46,6 +46,26 @@
             50% { opacity: 0.3; transform: translateX(2px); }
             100% { opacity: 1; transform: translateX(-2px); }
         }
+        #eye-warning {
+            display: none;
+            font-size: 24px;
+            color: red;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            padding: 20px;
+            border: 3px solid red;
+            text-align: center;
+            animation: glitch 0.5s infinite alternate;
+        }
+        #eye-warning img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
@@ -55,7 +75,12 @@
         <input type="text" id="username" placeholder="輸入名稱">
         <button onclick="startReading()">開始閱讀</button>
     </div>
-     <button onclick="startReading()">開始閱讀</button>
+    
+    <div id="eye-warning">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Eye_icon.svg" alt="Eye">
+        <p>我在看你</p>
+    </div>
+    
     <script>
         function startReading() {
             let userInput = document.getElementById("username").value;
@@ -64,7 +89,7 @@
             }
             let scrambledName = scrambleText(userInput);
             sessionStorage.setItem("username", scrambledName);
-            window.location.href = "page1.html"; // 確保這裡正確指向 page1.html
+            window.location.href = "page1.html";
         }
 
         function scrambleText(text) {
@@ -73,6 +98,16 @@
                 String.fromCharCode(33 + Math.floor(Math.random() * 94))
             ).join('');
         }
+        
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("eye-warning").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("eye-warning").style.display = "none";
+                }, 2000);
+            }
+        });
     </script>
 </body>
 </html>
