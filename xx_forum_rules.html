@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">\>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XX論壇使用守則</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        input, button {
+            font-size: 18px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>XX論壇使用守則</h1>
+    <p>請輸入您的名稱：</p>
+    <input type="text" id="username" placeholder="輸入名稱">
+    <button onclick="startReading()">開始閱讀</button>
+    
+    <script>
+        function startReading() {
+            let userInput = document.getElementById("username").value;
+            if (userInput.trim() === "") {
+                userInput = "Unknown";
+            }
+            let scrambledName = scrambleText(userInput);
+            sessionStorage.setItem("username", scrambledName);
+            window.location.href = "page1.html";
+        }
+
+        function scrambleText(text) {
+            return text.split('').map(char => Math.random() > 0.5 ? char : String.fromCharCode(33 + Math.floor(Math.random() * 94))).join('');
+        }
+    </script>
+</body>
+</html>
