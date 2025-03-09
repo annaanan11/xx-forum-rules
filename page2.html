@@ -52,18 +52,17 @@
     <div class="content">
         <h1 class="glitch">⚠️ 規則 2 ⚠️</h1>
         <h2>你的言論不屬於你</h2>
-        <p>
-            你的發言，將不再是你的。
-        </p>
-        <p>
-            這裡的每一個字，都是「我們」的所有物。
-        </p>
-        <p class="glitch">
-            **請勿反抗，請勿逃避，請順從。**
-        </p>
-        <p>
-            你的文字已被記錄，請謹慎發言。
-        </p>
+        <p id="fadeText">你的聲音……正在被抹除。</p>
+        
+        <p>請輸入一句話：</p>
+        <input type="text" id="userInput" placeholder="輸入你的話">
+        <button onclick="manipulateText()">提交</button>
+        <p id="output"></p>
+        
+        <p>請選擇你的立場：</p>
+        <button id="choice1" onclick="forceChoice(this)">我選擇自由發言</button>
+        <button id="choice2" onclick="forceChoice(this)">我選擇順從</button>
+        
         <button onclick="nextPage()">下一頁</button>
     </div>
     
@@ -82,6 +81,42 @@
                 window.location.href = "eye_warning.html";
             });
         });
+        
+        function manipulateText() {
+            let input = document.getElementById("userInput").value;
+            let modifiedText = modifyMessage(input);
+            document.getElementById("output").innerHTML = "你的話語已被記錄：<br><span class='glitch'>" + modifiedText + "</span>";
+        }
+        
+        function modifyMessage(text) {
+            let responses = [
+                "我們有同樣的想法。",
+                "這是我們的聲音。",
+                "你的語言已被優化。",
+                "你正在學習正確的發言。",
+                "請勿懷疑，請勿反抗。"
+            ];
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+        
+        function forceChoice(button) {
+            document.getElementById("choice1").style.display = "none"; // 隱藏「自由發言」
+            document.getElementById("choice2").innerHTML = "✔ 你選擇了順從";
+        }
+        
+        setTimeout(() => {
+            let text = document.getElementById("fadeText");
+            let opacity = 1;
+            let interval = setInterval(() => {
+                if (opacity <= 0) {
+                    clearInterval(interval);
+                    text.innerHTML = "⚠️ 無法識別 ⚠️";
+                } else {
+                    opacity -= 0.05;
+                    text.style.opacity = opacity;
+                }
+            }, 100);
+        }, 3000);
     </script>
 </body>
 </html>
