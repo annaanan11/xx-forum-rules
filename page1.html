@@ -109,12 +109,13 @@
             }
         });
         
-        // 阻止使用者返回上一頁
-        window.history.pushState(null, null, window.location.href);
-        window.addEventListener("popstate", function() {
-            window.history.pushState(null, null, window.location.href);
-            alert("請勿回頭。");
-        });
+      // 阻止返回上一頁並強制留在當前頁面
+history.pushState(null, null, document.URL);
+window.addEventListener("popstate", function () {
+    history.pushState(null, null, document.URL);
+    alert("請勿回頭。");
+    location.reload(); // 讓頁面自動重新載入，防止使用者回退
+});
     </script>
 </body>
 </html>
