@@ -31,6 +31,8 @@
             color: black;
             border: 3px solid #ff0000;
             cursor: pointer;
+            display: block;
+            margin: 10px auto;
         }
         button:hover {
             background-color: red;
@@ -46,6 +48,9 @@
             50% { opacity: 0.3; transform: translateX(2px); }
             100% { opacity: 1; transform: translateX(-2px); }
         }
+        #nextPageBtn {
+            display: none; /* 初始隱藏下一頁按鈕 */
+        }
     </style>
 </head>
 <body>
@@ -58,20 +63,16 @@
         <p>
             這裡的每一個字，都是「我們」的所有物。
         </p>
-        <p class="glitch">**請勿反抗，請勿逃避，請順從。**</p>        
-        <p>請選擇你的立場：</p>
-        <button id="choice1" onclick="forceChoice(this)">我選擇自由發言</button>
-        <button id="choice2" onclick="forceChoice(this)">我選擇順從</button>
-        </p>    
-        <p>請選擇你的立場：</p>
-        <button id="choice1" onclick="forceChoice(this)">我選擇自由發言</button>
-        <button id="choice2" onclick="forceChoice(this)">我選擇順從</button>
-        </p>     
-        <p>請選擇你的立場：</p>
-        <button id="choice1" onclick="forceChoice(this)">我選擇自由發言</button>
-        <button id="choice2" onclick="forceChoice(this)">我選擇順從</button>
+        <p class="glitch">**請勿反抗，請勿逃避，請順從。**</p>
         
-        <button onclick="nextPage()">下一頁</button>
+        <p id="fadeText">你的聲音……正在被抹除。</p>
+        
+        <p>請選擇你的立場：</p>
+        <button id="choice1" onclick="forceChoice()">我選擇順從</button>
+        <button id="choice2" onclick="forceChoice()">我選擇完全順從</button>
+        <button id="choice3" onclick="forceChoice()">我選擇徹底順從</button>
+        
+        <button id="nextPageBtn" onclick="nextPage()">下一頁</button>
     </div>
     
     <script>
@@ -90,26 +91,11 @@
             });
         });
         
-        function manipulateText() {
-            let input = document.getElementById("userInput").value;
-            let modifiedText = modifyMessage(input);
-            document.getElementById("output").innerHTML = "你的話語已被記錄：<br><span class='glitch'>" + modifiedText + "</span>";
-        }
-        
-        function modifyMessage(text) {
-            let responses = [
-                "我們有同樣的想法。",
-                "這是我們的聲音。",
-                "你的語言已被優化。",
-                "你正在學習正確的發言。",
-                "請勿懷疑，請勿反抗。"
-            ];
-            return responses[Math.floor(Math.random() * responses.length)];
-        }
-        
-        function forceChoice(button) {
-            document.getElementById("choice1").style.display = "none"; // 隱藏「自由發言」
-            document.getElementById("choice2").innerHTML = "✔ 你選擇了順從";
+        function forceChoice() {
+            document.getElementById("choice1").style.display = "none";
+            document.getElementById("choice2").style.display = "none";
+            document.getElementById("choice3").style.display = "none";
+            document.getElementById("nextPageBtn").style.display = "block"; // 顯示下一頁按鈕
         }
         
         setTimeout(() => {
