@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匿名論壇使用守則</title>
+    
+    <!-- 8-bit 風格字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            image-rendering: pixelated;
+        }
+        .content {
+            max-width: 600px;
+            margin: auto;
+        }
+        button {
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: white;
+            color: black;
+            border: 3px solid #ff0000;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: red;
+            color: white;
+            transform: scale(1.1);
+        }
+        .glitch {
+            color: red;
+            animation: glitch 0.3s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; transform: translateX(2px); }
+            100% { opacity: 1; transform: translateX(-2px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1 class="glitch">匿名論壇使用守則</h1>
+        <p>請輸入您的名稱：</p>
+        <input type="text" id="username" placeholder="輸入名稱">
+        <button onclick="startReading()">開始閱讀</button>
+    </div>
+    
+    <script>
+        function startReading() {
+            let userInput = document.getElementById("username").value;
+            if (userInput.trim() === "") {
+                userInput = "Unknown";
+            }
+            let scrambledName = scrambleText(userInput);
+            sessionStorage.setItem("username", scrambledName);
+            window.location.href = "page1.html";
+        }
+
+        function scrambleText(text) {
+            return text.split('').map(char => 
+                Math.random() > 0.5 ? char : 
+                String.fromCharCode(33 + Math.floor(Math.random() * 94))
+            ).join('');
+        }
+    </script>
+</body>
+</html>
