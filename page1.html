@@ -46,30 +46,10 @@
             50% { opacity: 0.3; transform: translateX(2px); }
             100% { opacity: 1; transform: translateX(-2px); }
         }
-        #eye-warning {
-            display: none;
-            font-size: 24px;
-            color: red;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: black;
-            padding: 20px;
-            border: 3px solid red;
-            text-align: center;
-            animation: glitch 0.5s infinite alternate;
-        }
-        #eye-warning img {
-            width: 100px;
-            height: 100px;
-            display: block;
-            margin: auto;
-        }
     </style>
 </head>
 <body>
-    <div class="content" id="main-content">
+    <div class="content">
         <h1 class="glitch">⚠️ 規則 1 ⚠️</h1>
         <h2>匿名是一種義務</h2>
         <p>
@@ -87,12 +67,6 @@
         <button onclick="nextPage()">下一頁</button>
     </div>
     
-    <div id="eye-warning">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Eye_icon.svg" alt="Eye">
-        <p>我在看你</p>
-        <button onclick="returnToPage()">對不起</button>
-    </div>
-    
     <script>
         document.getElementById("username").textContent = sessionStorage.getItem("username") || "Unknown";
         
@@ -100,18 +74,13 @@
             window.location.href = "page2.html";
         }
         
-        function returnToPage() {
-            document.getElementById("eye-warning").style.display = "none";
-            document.getElementById("main-content").style.display = "block";
-        }
-        
         // 當使用者按「上一頁」，跳轉到「我在看你」頁面
-window.addEventListener("DOMContentLoaded", function() {
-    history.pushState(null, null, document.URL);
-    window.addEventListener("popstate", function () {
-        window.location.href = "eye_warning.html";
-    });
-});
+        window.addEventListener("DOMContentLoaded", function() {
+            history.pushState(null, null, document.URL);
+            window.addEventListener("popstate", function () {
+                window.location.href = "eye_warning.html";
+            });
+        });
     </script>
 </body>
 </html>
