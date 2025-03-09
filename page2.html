@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>規則 2 - 你的言論不屬於你</title>
+    
+    <!-- 8-bit 風格字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            image-rendering: pixelated;
+        }
+        .content {
+            max-width: 600px;
+            margin: auto;
+        }
+        button {
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: white;
+            color: black;
+            border: 3px solid #ff0000;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: red;
+            color: white;
+            transform: scale(1.1);
+        }
+        .glitch {
+            color: red;
+            animation: glitch 0.3s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; transform: translateX(2px); }
+            100% { opacity: 1; transform: translateX(-2px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1 class="glitch">⚠️ 規則 2 ⚠️</h1>
+        <h2>你的言論不屬於你</h2>
+        <p>
+            你的發言，將不再是你的。
+        </p>
+        <p>
+            這裡的每一個字，都是「我們」的所有物。
+        </p>
+        <p class="glitch">
+            **請勿反抗，請勿逃避，請順從。**
+        </p>
+        <p>
+            你的文字已被記錄，請謹慎發言。
+        </p>
+        <button onclick="nextPage()">下一頁</button>
+    </div>
+    
+    <script>
+        function nextPage() {
+            window.location.href = "page3.html";
+        }
+        
+        // 記錄當前頁面，讓「我在看你」頁面能正確返回
+        sessionStorage.setItem("lastPage", window.location.href);
+
+        // 當使用者按「上一頁」，跳轉到「我在看你」頁面
+        window.addEventListener("DOMContentLoaded", function() {
+            history.pushState(null, null, document.URL);
+            window.addEventListener("popstate", function () {
+                window.location.href = "eye_warning.html";
+            });
+        });
+    </script>
+</body>
+</html>
