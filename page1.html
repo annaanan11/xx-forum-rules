@@ -82,7 +82,7 @@
             **請勿詢問，請勿回頭，請遵從。**
         </p>
         <p>
-            你的行為已被紀錄，請謹慎使用你的發言權。 
+            你的行為已被紀錄，請謹慎使用你的發言權。
         </p>
         <button onclick="nextPage()">下一頁</button>
     </div>
@@ -107,6 +107,13 @@
                     document.getElementById("eye-warning").style.display = "none";
                 }, 2000);
             }
+        });
+        
+        // 阻止使用者返回上一頁
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener("popstate", function() {
+            window.history.pushState(null, null, window.location.href);
+            alert("請勿回頭。");
         });
     </script>
 </body>
