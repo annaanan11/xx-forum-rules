@@ -79,3 +79,78 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>規則 1 - 匿名是一種義務</title>
+    
+    <!-- 8-bit 風格字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            image-rendering: pixelated; /* 讓畫面有像素感 */
+        }
+        .content {
+            max-width: 600px;
+            margin: auto;
+        }
+        button {
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: white;
+            color: black;
+            border: 3px solid #ff0000;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: red;
+            color: white;
+            transform: scale(1.1);
+        }
+        .glitch {
+            color: red;
+            animation: glitch 0.3s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; transform: translateX(2px); }
+            100% { opacity: 1; transform: translateX(-2px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1 class="glitch">規則 1</h1>
+        <h2>匿名是一種義務</h2>
+        <p>
+            歡迎，<span id="username"></span>。
+        </p>
+        <p>
+            你已經成為「我們」的一部分。請記住，在這裡，你的名字不重要，身份更是多餘的。
+        </p>
+        <p>
+            **請勿詢問，請勿回頭，請遵從。**
+        </p>
+        <button onclick="nextPage()">下一頁</button>
+    </div>
+    
+    <script>
+        document.getElementById("username").textContent = sessionStorage.getItem("username") || "Unknown";
+        
+        function nextPage() {
+            window.location.href = "page2.html";
+        }
+    </script>
+</body>
+</html>
