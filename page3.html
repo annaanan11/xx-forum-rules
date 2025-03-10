@@ -49,8 +49,12 @@
             50% { opacity: 0.3; transform: translateX(2px); }
             100% { opacity: 1; transform: translateX(-2px); }
         }
-        #messageSelection, #reviewSection {
-            display: none;
+        #messageSelection {
+            display: block; /* 修正 - 預設顯示 */
+            margin-top: 20px;
+        }
+        #reviewSection {
+            display: none; /* 預設隱藏 */
             margin-top: 20px;
         }
         #floatingComments {
@@ -87,10 +91,9 @@
             <button onclick="selectMessage(4)">我希望我們能彼此尊重。</button>
         </div>
     </div>
-        <div id="reviewSection">
-            <p>你的身份已確認，請耐心等候審查。</p>
-            <button onclick="nextPage()">我接受審查</button>
-        </div>
+    <div id="reviewSection">
+        <p>你的身份已確認，請耐心等候審查。</p>
+        <button onclick="nextPage()">我接受審查</button>
     </div>
     <div id="floatingComments"></div>
     
@@ -105,8 +108,8 @@
 
         function selectMessage(index) {
             document.getElementById("messageSelection").style.display = "none";
-            document.getElementById("reviewSection").style.display = "block";
             let floatingDiv = document.getElementById("floatingComments");
+
             for (let i = 0; i < comments[index].length; i++) {
                 let p = document.createElement("p");
                 p.textContent = comments[index][i];
@@ -114,6 +117,10 @@
                 p.style.left = Math.random() * 80 + "%";
                 floatingDiv.appendChild(p);
             }
+
+            setTimeout(() => {
+                document.getElementById("reviewSection").style.display = "block"; // 3 秒後顯示審查頁面
+            }, 3000);
         }
 
         function nextPage() {
