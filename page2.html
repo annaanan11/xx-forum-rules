@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>規則 2 - 你的言論不屬於你</title>
+    <title>規則 2 - 你現在是匿名者</title>
     
     <!-- 8-bit 風格字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -17,12 +17,13 @@
             margin: 0;
             padding: 20px;
             image-rendering: pixelated;
+            overflow: hidden;
         }
         .content {
             max-width: 600px;
             margin: auto;
         }
-        button {
+        button, input {
             font-family: 'VT323', monospace;
             font-size: 20px;
             padding: 10px;
@@ -48,70 +49,62 @@
             50% { opacity: 0.3; transform: translateX(2px); }
             100% { opacity: 1; transform: translateX(-2px); }
         }
-        #nextPageBtn {
-            display: none; /* 初始隱藏下一頁按鈕 */
+        #floatingComments {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
         }
-        .disabled {
-            background-color: grey !important;
-            cursor: not-allowed;
+        .comment {
+            position: absolute;
+            font-size: 14px;
+            color: red;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
         }
     </style>
 </head>
 <body>
     <div class="content">
         <h1 class="glitch">⚠️ 規則 2 ⚠️</h1>
-        <h2>你的言論不屬於你</h2>
-        <p>
-            你的發言，將不再是你的。
-        </p>
-        <p>
-            這裡的每一個字，都是「我們」的所有物。
-        </p>
-        <p class="glitch">**請勿反抗，請勿逃避，請順從。**</p>
-        
-        <p id="fadeText">你的聲音……正在被抹除。</p>
-        
-        <p>請回答以下問題：</p>
-        
-        <p>1. 你是否願意遵守規則？</p>
-        <button class="disabled">我選擇自由發言</button>
-        <button class="choice" onclick="forceChoice()">我選擇順從</button>
-        
-        <p>2. 你是否願意成為我們的一部分？</p>
-        <button class="disabled">我選擇自由發言</button>
-        <button class="choice" onclick="forceChoice()">我選擇完全順從</button>
-        
-        <p>3. 你是否願意放棄獨立思考？</p>
-        <button class="disabled">我選擇自由發言</button>
-        <button class="choice" onclick="forceChoice()">我選擇徹底順從</button>
-        
-        <button id="nextPageBtn" onclick="nextPage()">下一頁</button>
+        <h2>你現在是匿名者</h2>
+        <p>請輸入你的第一則匿名發言：</p>
+        <input type="text" id="userInput" placeholder="輸入你的話">
+        <button onclick="postMessage()">提交</button>
     </div>
     
+    <div id="floatingComments"></div>
+    
     <script>
-        function nextPage() {
-            window.location.href = "page3.html";
-        }
-        
-        // 記錄當前頁面，讓「我在看你」頁面能正確返回
-        sessionStorage.setItem("lastPage", window.location.href);
-
-        // 當使用者按「上一頁」，跳轉到「我在看你」頁面
-        window.addEventListener("DOMContentLoaded", function() {
-            history.pushState(null, null, document.URL);
-            window.addEventListener("popstate", function () {
-                window.location.href = "eye_warning.html";
-            });
-        });
-        
-        let choices = document.querySelectorAll(".choice");
-        let selectedChoices = 0;
-        function forceChoice() {
-            selectedChoices++;
-            event.target.style.display = "none";
-            if (selectedChoices === choices.length) {
-                document.getElementById("nextPageBtn").style.display = "block"; // 顯示下一頁按鈕
+        function postMessage() {
+            let input = document.getElementById("userInput").value;
+            if (!input.trim()) return;
+            
+            document.getElementById("userInput").value = "";
+            let floatingDiv = document.getElementById("floatingComments");
+            
+            let comments = [
+                "XX正在追蹤你...", "XX正在檢視你的發言...", "XX已提交你的紀錄...", 
+                "你確定要這麼說嗎？", "你的匿名是否還安全？", "你的身份仍然隱藏著嗎？"
+            ];
+            
+            for (let i = 0; i < 10; i++) {
+                let p = document.createElement("p");
+                p.textContent = comments[Math.floor(Math.random() * comments.length)];
+                p.classList.add("comment");
+                p.style.left = Math.random() * 80 + "%";
+                floatingDiv.appendChild(p);
             }
+            
+            setTimeout(() => {
+                window.location.href = "page3.html";
+            }, 4000);
         }
     </script>
 </body>
