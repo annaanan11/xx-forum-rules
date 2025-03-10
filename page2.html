@@ -60,13 +60,15 @@
         }
         .comment {
             position: absolute;
-            font-size: 14px;
+            font-size: 24px;
             color: red;
-            animation: floatUp 5s linear infinite;
+            font-weight: bold;
+            opacity: 0.8;
+            animation: floatUp 8s linear infinite;
         }
         @keyframes floatUp {
-            from { transform: translateY(100vh); }
-            to { transform: translateY(-10vh); }
+            from { transform: translateY(110vh); opacity: 1; }
+            to { transform: translateY(-10vh); opacity: 0; }
         }
     </style>
 </head>
@@ -94,17 +96,18 @@
                 "你確定要這麼說嗎？", "你的匿名是否還安全？", "你的身份仍然隱藏著嗎？"
             ];
             
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 15; i++) {
                 let p = document.createElement("p");
                 p.textContent = comments[Math.floor(Math.random() * comments.length)];
                 p.classList.add("comment");
                 p.style.left = Math.random() * 80 + "%";
+                p.style.fontSize = (Math.random() * 10 + 20) + "px";
                 floatingDiv.appendChild(p);
             }
             
             setTimeout(() => {
                 window.location.href = "page3.html";
-            }, 4000);
+            }, 5000);
         }
     </script>
 </body>
