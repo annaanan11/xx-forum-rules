@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.1 - 你還敢說什麼？</title>
+    
+    <!-- 8-bit 風格字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            image-rendering: pixelated;
+            overflow: hidden;
+        }
+        .content {
+            max-width: 600px;
+            margin: auto;
+        }
+        button, input {
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: white;
+            color: black;
+            border: 3px solid #ff0000;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        button:hover {
+            background-color: red;
+            color: white;
+            transform: scale(1.1);
+        }
+        #floatingComments {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .comment {
+            position: absolute;
+            font-size: 16px;
+            color: red;
+            font-weight: bold;
+            animation: floatUp 3s linear infinite;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
+        }
+    </style>
+</head>
+<body>
+    <div class="content" id="main-content">
+        <h1 class="glitch">⚠️ 你還想說什麼？ 你還敢說什麼？ ⚠️</h1>
+        <p>請選擇：</p>
+        <input type="text" id="userInput" placeholder="輸入你的話">
+        <button onclick="startWitchTrial(true)">提交</button>
+        <button onclick="startWitchTrial(false)">沒有</button>
+    </div>
+    <div id="floatingComments"></div>
+    
+    <script>
+        function startWitchTrial(isInput) {
+            document.getElementById("main-content").style.display = "none";
+            let floatingDiv = document.getElementById("floatingComments");
+            let comments = isInput ? [
+                "女巫！燒死她！", "她就是罪人！", "不准說話！", "審判她！", "這種人不配活著！", "她還想狡辯？", "讓她閉嘴！"
+            ] : [
+                "不是匿名嗎？", "閉嘴吧，懦夫。", "現在害怕了？", "沒話說了？呵呵。", "這才是你的真面目吧？", "沉默是默認罪行。", "看來你沒話可說了。"
+            ];
+            for (let i = 0; i < 30; i++) {
+                let p = document.createElement("p");
+                p.textContent = comments[Math.floor(Math.random() * comments.length)];
+                p.classList.add("comment");
+                p.style.left = Math.random() * 90 + "%";
+                floatingDiv.appendChild(p);
+            }
+            setTimeout(() => {
+                window.location.href = "page4.html";
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
