@@ -17,6 +17,7 @@
             margin: 0;
             padding: 20px;
             image-rendering: pixelated;
+            overflow: hidden;
         }
         .content {
             max-width: 600px;
@@ -48,21 +49,28 @@
             50% { opacity: 0.3; transform: translateX(2px); }
             100% { opacity: 1; transform: translateX(-2px); }
         }
-        #nameInputSection {
-            margin-top: 20px;
-        }
-        #reviewSection {
+        #messageSelection, #reviewSection {
             display: none;
             margin-top: 20px;
         }
-        #randomComments {
-            text-align: left;
+        #floatingComments {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .comment {
+            position: absolute;
             font-size: 14px;
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 10px;
-            background: rgba(255, 0, 0, 0.2);
-            border: 2px solid red;
+            color: red;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
         }
     </style>
 </head>
@@ -70,44 +78,42 @@
     <div class="content">
         <h1 class="glitch">⚠️ 規則 3 ⚠️</h1>
         <h2>你的身份已被記錄</h2>
-        <p>為了繼續，請輸入你的正式名稱：</p>
-        <div id="nameInputSection">
-            <input type="text" id="realName" placeholder="輸入你的名稱">
-            <button onclick="submitName()">確認</button>
+        <p>為了繼續，請選擇你的發言：</p>
+        <div id="messageSelection">
+            <button onclick="selectMessage(0)">我只是表達我的觀點。</button>
+            <button onclick="selectMessage(1)">這應該是一場理性討論。</button>
+            <button onclick="selectMessage(2)">我沒有惡意，只是想說明情況。</button>
+            <button onclick="selectMessage(3)">請不要斷章取義我的話。</button>
+            <button onclick="selectMessage(4)">我希望我們能彼此尊重。</button>
         </div>
         
         <div id="reviewSection">
             <p>你的身份已確認，請耐心等候審查。</p>
-            <div id="randomComments"></div>
-            <button onclick="nextPage()">繼續</button>
+            <button onclick="nextPage()">我接受審查</button>
         </div>
     </div>
+    <div id="floatingComments"></div>
     
     <script>
         const comments = [
-            "哦？公開身份了，現在要開始演無辜了嗎？",
-            "這就是你的真面目？",
-            "你的紀錄已被存檔，請準備接受審查。",
-            "你覺得你的名字有任何意義嗎？",
-            "XX 已將你的身份提交審查。",
-            "XX 正在檢查你的過去發言紀錄。",
-            "你知道自己已經沒機會回頭了吧？"
+            ["所以你承認了？", "這根本是狡辯。", "又在裝無辜？", "你說這話是想甩鍋嗎？", "這就是你的真面目。"],
+            ["理性討論？別笑死人了。", "你這是暗示其他人不理性嗎？", "看來你只想推卸責任。", "這話讓我更不爽了。", "你真會粉飾自己。"],
+            ["沒有惡意？別裝了。", "看來你很會掩飾自己啊。", "不覺得這話很可笑嗎？", "標準的甩鍋言論。", "你根本沒資格說這句話。"],
+            ["誰在斷章取義？", "這不就是你自己說的話嗎？", "敢說就別怕被引用。", "這種話聽多了。", "又想當受害者了？"],
+            ["彼此尊重？你配嗎？", "這話說得好虛偽。", "尊重是你該談的事嗎？", "你對別人有尊重過嗎？", "別演了，大家都看穿了。"]
         ];
 
-        function submitName() {
-            let inputName = document.getElementById("realName").value.trim();
-            if (inputName === "") {
-                inputName = "Unknown";
-            }
-            document.getElementById("nameInputSection").style.display = "none";
+        function selectMessage(index) {
+            document.getElementById("messageSelection").style.display = "none";
             document.getElementById("reviewSection").style.display = "block";
-            
-            let commentBox = document.getElementById("randomComments");
-            comments.forEach(comment => {
+            let floatingDiv = document.getElementById("floatingComments");
+            for (let i = 0; i < comments[index].length; i++) {
                 let p = document.createElement("p");
-                p.textContent = comment;
-                commentBox.appendChild(p);
-            });
+                p.textContent = comments[index][i];
+                p.classList.add("comment");
+                p.style.left = Math.random() * 80 + "%";
+                floatingDiv.appendChild(p);
+            }
         }
 
         function nextPage() {
