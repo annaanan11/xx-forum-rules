@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>規則 3 - 你的身份已被記錄</title>
+    
+    <!-- 8-bit 風格字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: black;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            image-rendering: pixelated;
+        }
+        .content {
+            max-width: 600px;
+            margin: auto;
+        }
+        button {
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: white;
+            color: black;
+            border: 3px solid #ff0000;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+        }
+        button:hover {
+            background-color: red;
+            color: white;
+            transform: scale(1.1);
+        }
+        .glitch {
+            color: red;
+            animation: glitch 0.3s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; transform: translateX(2px); }
+            100% { opacity: 1; transform: translateX(-2px); }
+        }
+        #nameInputSection {
+            margin-top: 20px;
+        }
+        #reviewSection {
+            display: none;
+            margin-top: 20px;
+        }
+        #randomComments {
+            text-align: left;
+            font-size: 14px;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1 class="glitch">⚠️ 規則 3 ⚠️</h1>
+        <h2>你的身份已被記錄</h2>
+        <p>為了繼續，請輸入你的正式名稱：</p>
+        <div id="nameInputSection">
+            <input type="text" id="realName" placeholder="輸入你的名稱">
+            <button onclick="submitName()">確認</button>
+        </div>
+        
+        <div id="reviewSection">
+            <p>你的身份已確認，請耐心等候審查。</p>
+            <div id="randomComments"></div>
+            <button onclick="nextPage()">繼續</button>
+        </div>
+    </div>
+    
+    <script>
+        const comments = [
+            "哦？公開身份了，現在要開始演無辜了嗎？",
+            "這就是你的真面目？",
+            "你的紀錄已被存檔，請準備接受審查。",
+            "你覺得你的名字有任何意義嗎？",
+            "XX 已將你的身份提交審查。",
+            "XX 正在檢查你的過去發言紀錄。",
+            "你知道自己已經沒機會回頭了吧？"
+        ];
+
+        function submitName() {
+            let inputName = document.getElementById("realName").value.trim();
+            if (inputName === "") {
+                inputName = "Unknown";
+            }
+            document.getElementById("nameInputSection").style.display = "none";
+            document.getElementById("reviewSection").style.display = "block";
+            
+            let commentBox = document.getElementById("randomComments");
+            comments.forEach(comment => {
+                let p = document.createElement("p");
+                p.textContent = comment;
+                commentBox.appendChild(p);
+            });
+        }
+
+        function nextPage() {
+            window.location.href = "page4.html";
+        }
+    </script>
+</body>
+</html>
